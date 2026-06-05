@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regent Stays — Curated Luxury Stays in Dallas-Fort Worth</title>
+<meta name="description" content="Regent Stays offers curated luxury short-term rentals in Dallas-Fort Worth. Designer suites with resort amenities, lake views, and DART rail access.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --dark: #141414;
+  --dark-2: #1a1a1a;
+  --dark-3: #222;
+  --gold: #c9a96e;
+  --gold-light: #dfc394;
+  --gold-dark: #a8884d;
+  --cream: #f5f0e8;
+  --cream-dim: #b8b0a2;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+::selection { background: var(--gold); color: var(--black); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+
+/* ═══ NAV ═══ */
+.nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; transition: background .4s, padding .4s, backdrop-filter .4s; }
+.nav.scrolled { background: rgba(10,10,10,.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 1rem 3rem; border-bottom: 1px solid rgba(201,169,110,.12); }
+.nav__logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
+.nav__logo span { color: var(--cream); font-weight: 300; }
+.nav__links { display: flex; gap: 2.5rem; list-style: none; }
+.nav__links a { font-size: .82rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--cream-dim); transition: color .3s; position: relative; }
+.nav__links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s var(--ease); }
+.nav__links a:hover { color: var(--gold); }
+.nav__links a:hover::after { width: 100%; }
+
+/* ═══ HERO ═══ */
+.hero { position: relative; height: 100vh; min-height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
+.hero__bg { position: absolute; inset: 0; background-image: url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/d4cb708a-3694-4e6f-bd63-6757450a95e0.png?im_w=1200'); background-size: cover; background-position: center; filter: brightness(.35) saturate(.8); transform: scale(1.08); animation: heroZoom 20s ease-in-out infinite alternate; }
+@keyframes heroZoom { 0% { transform: scale(1.08); } 100% { transform: scale(1.15); } }
+.hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,.15) 40%, rgba(10,10,10,.6) 80%, var(--black) 100%), radial-gradient(ellipse at 50% 30%, rgba(201,169,110,.06) 0%, transparent 70%); }
+.hero__content { position: relative; z-index: 2; padding: 0 2rem; }
+.hero__badge { display: inline-flex; align-items: center; gap: .75rem; padding: .5rem 1.4rem; border: 1px solid rgba(201,169,110,.35); border-radius: 100px; font-size: .75rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; backdrop-filter: blur(10px); background: rgba(201,169,110,.06); animation: fadeInDown 1s .3s var(--ease) both; }
+.hero__title { font-family: var(--serif); font-size: clamp(3.5rem,9vw,8rem); font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; animation: fadeInUp 1.2s .5s var(--ease) both; }
+.hero__title em { font-style: normal; color: var(--gold); font-weight: 400; }
+.hero__tagline { font-family: var(--serif); font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 300; font-style: italic; color: var(--cream-dim); letter-spacing: .06em; margin-bottom: 2.5rem; animation: fadeInUp 1.2s .7s var(--ease) both; }
+.hero__stats { display: flex; justify-content: center; gap: 3rem; animation: fadeInUp 1.2s .9s var(--ease) both; }
+.hero__stat-number { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--gold); line-height: 1.2; }
+.hero__stat-label { font-size: .7rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--cream-dim); }
+.hero__scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem; animation: fadeInUp 1.2s 1.2s var(--ease) both; }
+.hero__scroll span { font-size: .65rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); }
+.hero__scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: .3; transform: scaleY(.6); } 50% { opacity: 1; transform: scaleY(1); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ═══ INTRO ═══ */
+.intro { padding: 8rem 3rem 4rem; text-align: center; max-width: 800px; margin: 0 auto; }
+.section-label { font-size: .72rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.section-label::before, .section-label::after { content: ''; width: 30px; height: 1px; background: var(--gold-dark); }
+.intro__heading { font-family: var(--serif); font-size: clamp(2rem,4vw,3rem); font-weight: 300; line-height: 1.3; color: var(--cream); margin-bottom: 1.5rem; }
+.intro__text { font-size: 1rem; line-height: 1.8; color: var(--cream-dim); max-width: 600px; margin: 0 auto; }
+
+/* ═══ EXPLORE GRID ═══ */
+.explore { padding: 2rem 3rem 6rem; max-width: 1280px; margin: 0 auto; }
+.explore__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.explore__card { position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; height: 260px; }
+.explore__card--wide { grid-column: span 1; }
+.explore__card:nth-child(4), .explore__card:nth-child(5) { height: 280px; }
+.explore__card img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.explore__card:hover img { transform: scale(1.06); }
+.explore__card__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(10,10,10,.8) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; transition: background .4s; }
+.explore__card:hover .explore__card__overlay { background: linear-gradient(180deg, transparent 20%, rgba(10,10,10,.85) 100%); }
+.explore__card__name { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--cream); line-height: 1.2; margin-bottom: .3rem; }
+.explore__card__loc { font-size: .75rem; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+
+/* ═══ LISTING ═══ */
+.listing { padding: 4rem 0 6rem; border-top: 1px solid rgba(201,169,110,.08); }
+.listing:nth-child(even) { background: var(--dark); }
+.listing__header { max-width: 1200px; margin: 0 auto 2.5rem; padding: 0 3rem; }
+.listing__number { font-family: var(--serif); font-size: .85rem; color: var(--gold-dark); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .5rem; }
+.listing__title { font-family: var(--serif); font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 400; color: var(--cream); line-height: 1.2; }
+
+/* Gallery */
+.gallery { width: 100%; overflow: hidden; margin-bottom: 3rem; }
+.gallery__track { display: flex; gap: 12px; padding: 0 3rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab; }
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__track:active { cursor: grabbing; }
+.gallery__item { flex: 0 0 auto; width: 520px; height: 360px; border-radius: 12px; overflow: hidden; scroll-snap-align: start; position: relative; }
+.gallery__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.gallery__item:hover img { transform: scale(1.05); }
+.gallery__item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(10,10,10,.3) 100%); pointer-events: none; }
+
+/* Listing Body */
+.listing__body { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 380px; gap: 4rem; }
+.listing__info-bar { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.listing__location { display: flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--cream-dim); }
+.listing__location svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; }
+.listing__specs { display: flex; gap: .6rem; font-size: .82rem; color: var(--cream-dim); }
+.listing__specs span::after { content: '\00b7'; margin-left: .6rem; color: var(--gold-dark); }
+.listing__specs span:last-child::after { content: ''; }
+.listing__description { font-size: 1rem; line-height: 1.85; color: var(--cream-dim); margin-bottom: 2.5rem; }
+
+/* ═══ AMENITY PHOTO CARDS ═══ */
+.amenity-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 2rem; }
+.amenity-card { position: relative; border-radius: 12px; overflow: hidden; height: 180px; cursor: default; }
+.amenity-card--photo { background-size: cover; background-position: center; }
+.amenity-card--photo::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.75) 100%); transition: background .4s; }
+.amenity-card--photo:hover::before { background: linear-gradient(180deg, rgba(10,10,10,.05) 0%, rgba(10,10,10,.65) 100%); }
+.amenity-card--gradient { background: linear-gradient(135deg, var(--dark-2) 0%, var(--dark-3) 100%); border: 1px solid rgba(201,169,110,.1); }
+.amenity-card--gradient:hover { border-color: rgba(201,169,110,.25); }
+.amenity-card__inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
+.amenity-card__icon { width: 28px; height: 28px; color: var(--gold); margin-bottom: .6rem; }
+.amenity-card__title { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--cream); margin-bottom: .35rem; }
+.amenity-card__features { font-size: .75rem; color: var(--cream-dim); line-height: 1.5; }
+
+/* Building amenities row */
+.building-amenities { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 0; }
+.b-amenity { display: flex; align-items: center; gap: .5rem; padding: .55rem .85rem; background: rgba(201,169,110,.04); border: 1px solid rgba(201,169,110,.1); border-radius: 8px; font-size: .78rem; color: var(--cream-dim); transition: border-color .3s, background .3s; }
+.b-amenity:hover { border-color: rgba(201,169,110,.25); background: rgba(201,169,110,.08); }
+.b-amenity svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
+
+/* ═══ BOOKING CARD ═══ */
+.listing__sidebar { position: relative; }
+.booking-card { position: sticky; top: 100px; background: var(--dark-2); border: 1px solid rgba(201,169,110,.12); border-radius: 16px; padding: 2rem; }
+.booking-card__label { font-size: .7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; text-align: center; }
+.booking-card__title { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--cream); line-height: 1.3; margin-bottom: .3rem; text-align: center; }
+.booking-card__subtitle { font-size: .82rem; color: var(--cream-dim); margin-bottom: 1.5rem; line-height: 1.5; text-align: center; }
+
+/* Booking Form */
+.booking-form { display: flex; flex-direction: column; gap: 1rem; }
+.booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.booking-field { display: flex; flex-direction: column; gap: .35rem; }
+.booking-field label { font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.booking-field input[type="date"],
+.booking-field select {
+  background: rgba(201,169,110,.06);
+  border: 1px solid rgba(201,169,110,.18);
+  border-radius: 8px;
+  padding: .7rem .85rem;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: .85rem;
+  outline: none;
+  transition: border-color .3s;
+  -webkit-appearance: none;
+}
+.booking-field input[type="date"]:focus,
+.booking-field select:focus { border-color: var(--gold); }
+.booking-field input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.7) sepia(.5) saturate(3) hue-rotate(10deg); cursor: pointer; }
+.booking-field select { cursor: pointer; }
+.booking-field select option { background: var(--dark-2); color: var(--cream); }
+
+/* Pet toggle */
+.pet-row { display: flex; align-items: center; justify-content: space-between; padding: .5rem 0; }
+.pet-row span { font-size: .82rem; color: var(--cream-dim); }
+.toggle { position: relative; width: 44px; height: 24px; cursor: pointer; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle__track { position: absolute; inset: 0; background: rgba(201,169,110,.15); border-radius: 12px; transition: background .3s; }
+.toggle input:checked + .toggle__track { background: var(--gold); }
+.toggle__thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: var(--cream); border-radius: 50%; transition: transform .3s var(--ease); box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.toggle input:checked ~ .toggle__thumb { transform: translateX(20px); }
+
+.btn-book { display: flex; align-items: center; justify-content: center; gap: .6rem; width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--black); font-family: var(--sans); font-size: .85rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-radius: 10px; transition: transform .3s var(--ease), box-shadow .3s; cursor: pointer; border: none; margin-top: .5rem; }
+.btn-book:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,169,110,.25); }
+.btn-book svg { width: 16px; height: 16px; transition: transform .3s; }
+.btn-book:hover svg { transform: translateX(3px); }
+.booking-card__note { margin-top: 1rem; font-size: .72rem; color: var(--cream-dim); opacity: .5; text-align: center; }
+
+/* ═══ POPUP MODAL ═══ */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+.modal-overlay.active { display: flex; animation: modalFadeIn .5s var(--ease); }
+@keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal { background: var(--dark-2); border: 1px solid var(--gold); border-radius: 20px; padding: 3rem 2.5rem; max-width: 440px; width: 100%; text-align: center; position: relative; animation: modalSlideUp .5s var(--ease); }
+@keyframes modalSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.modal__close { position: absolute; top: 1rem; right: 1rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--cream-dim); font-size: 1.2rem; cursor: pointer; border-radius: 50%; transition: color .3s, background .3s; background: none; border: none; }
+.modal__close:hover { color: var(--gold); background: rgba(201,169,110,.1); }
+.modal__icon { width: 48px; height: 48px; color: var(--gold); margin: 0 auto 1.5rem; }
+.modal__title { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--cream); margin-bottom: .5rem; }
+.modal__text { font-size: .9rem; color: var(--cream-dim); margin-bottom: 2rem; line-height: 1.6; }
+.modal__form { display: flex; flex-direction: column; gap: .75rem; }
+.modal__input { background: rgba(201,169,110,.06); border: 1px solid rgba(201,169,110,.2); border-radius: 10px; padding: .85rem 1rem; color: var(--cream); font-family: var(--sans); font-size: .9rem; outline: none; transition: border-color .3s; width: 100%; }
+.modal__input:focus { border-color: var(--gold); }
+.modal__input::placeholder { color: var(--cream-dim); opacity: .5; }
+.modal__btn { padding: 1rem; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--black); font-family: var(--sans); font-size: .85rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border-radius: 10px; border: none; cursor: pointer; transition: transform .3s var(--ease), box-shadow .3s; }
+.modal__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,169,110,.3); }
+.modal__fine { font-size: .7rem; color: var(--cream-dim); opacity: .4; margin-top: .5rem; }
+
+/* ═══ FOOTER ═══ */
+.footer { padding: 5rem 3rem 3rem; border-top: 1px solid rgba(201,169,110,.08); text-align: center; }
+.footer__logo { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.footer__tagline { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--cream-dim); margin-bottom: 2rem; }
+.footer__links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.footer__links a { font-size: .8rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream-dim); transition: color .3s; }
+.footer__links a:hover { color: var(--gold); }
+.footer__divider { width: 60px; height: 1px; background: var(--gold-dark); margin: 0 auto 1.5rem; }
+.footer__copy { font-size: .75rem; color: var(--cream-dim); opacity: .5; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 968px) {
+  .listing__body { grid-template-columns: 1fr; gap: 2.5rem; }
+  .booking-card { position: static; }
+  .explore__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav { padding: 1rem 1.5rem; }
+  .nav.scrolled { padding: .8rem 1.5rem; }
+  .nav__links { display: none; }
+  .hero__stats { gap: 1.5rem; }
+  .intro { padding: 5rem 1.5rem 3rem; }
+  .explore { padding: 1rem 1.5rem 4rem; }
+  .listing__header { padding: 0 1.5rem; }
+  .gallery__track { padding: 0 1.5rem; }
+  .gallery__item { width: 320px; height: 230px; }
+  .listing__body { padding: 0 1.5rem; }
+  .footer { padding: 3rem 1.5rem 2rem; }
+  .amenity-cards { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .amenity-card { height: 150px; }
+}
+@media (max-width: 480px) {
+  .hero__title { letter-spacing: .1em; }
+  .hero__stats { flex-direction: column; gap: 1rem; }
+  .explore__grid { grid-template-columns: 1fr; }
+  .explore__card, .explore__card:nth-child(4), .explore__card:nth-child(5) { height: 200px; }
+  .gallery__item { width: 280px; height: 200px; }
+  .amenity-cards { grid-template-columns: 1fr 1fr; }
+  .booking-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__logo">Regent <span>Stays</span></div>
+  <ul class="nav__links">
+    <li><a href="#explore">Properties</a></li>
+    <li><a href="#listing-1">Irving Suites</a></li>
+    <li><a href="#listing-4">Richardson</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <div class="hero__badge">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--gold)"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      Curated Collection &middot; Dallas&ndash;Fort Worth
+    </div>
+    <h1 class="hero__title"><em>Regent</em> Stays</h1>
+    <p class="hero__tagline">Curated luxury stays in Dallas&ndash;Fort Worth</p>
+    <div class="hero__stats">
+      <div class="hero__stat"><div class="hero__stat-number">5</div><div class="hero__stat-label">Properties</div></div>
+      <div class="hero__stat"><div class="hero__stat-number">2</div><div class="hero__stat-label">Cities</div></div>
+      <div class="hero__stat"><div class="hero__stat-number">DART</div><div class="hero__stat-label">Connected</div></div>
+    </div>
+  </div>
+  <div class="hero__scroll"><span>Explore</span><div class="hero__scroll-line"></div></div>
+</section>
+
+<!-- INTRO -->
+<section class="intro" id="listings">
+  <div class="reveal">
+    <div class="section-label">The Collection</div>
+    <h2 class="intro__heading">Designer suites with resort amenities, lake views, and DART rail at your doorstep</h2>
+    <p class="intro__text">Every Regent Stays property is hand-curated for design-forward travelers who expect more. Chef-inspired kitchens, Smart TVs, waterfront pools, panoramic sky lounges&nbsp;&mdash; experiences to remember.</p>
+  </div>
+</section>
+
+<!-- EXPLORE GRID -->
+<section class="explore" id="explore">
+  <div class="explore__grid reveal">
+    <a href="#listing-1" class="explore__card">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/46546182-9e9e-475d-bd14-3ca27823b1af.png?im_w=720" alt="Cozy Designer Suite" loading="lazy">
+      <div class="explore__card__overlay"><div class="explore__card__name">Cozy Designer Suite</div><div class="explore__card__loc">Irving, TX &middot; Las Colinas</div></div>
+    </a>
+    <a href="#listing-2" class="explore__card">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/80e3dcf4-ac70-4765-a5c8-f9c08d908cb4.png?im_w=720" alt="Designer Game Suite" loading="lazy">
+      <div class="explore__card__overlay"><div class="explore__card__name">Designer Game Suite</div><div class="explore__card__loc">Irving, TX &middot; Las Colinas</div></div>
+    </a>
+    <a href="#listing-3" class="explore__card">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/1a729f61-a2e8-4a71-b77f-c8d0711ee30e.jpeg?im_w=720" alt="Lake View Suite" loading="lazy">
+      <div class="explore__card__overlay"><div class="explore__card__name">Luxury Lake View Suite</div><div class="explore__card__loc">Irving, TX &middot; Las Colinas</div></div>
+    </a>
+    <a href="#listing-4" class="explore__card" style="grid-column: span 1;">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/a818f74a-be97-4f4a-86df-b8198233aefd.png?im_w=720" alt="Executive Living" loading="lazy">
+      <div class="explore__card__overlay"><div class="explore__card__name">Luxury Executive Living</div><div class="explore__card__loc">Richardson, TX</div></div>
+    </a>
+    <a href="#listing-5" class="explore__card" style="grid-column: span 2;">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/9198323c-4b1b-49c9-a728-37d07c6c7658.jpeg?im_w=720" alt="Stunning Lake Views" loading="lazy">
+      <div class="explore__card__overlay"><div class="explore__card__name">Stunning Lake Views</div><div class="explore__card__loc">Irving, TX &middot; Las Colinas</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LISTING 1: Cozy Designer Suite
+     ═══════════════════════════════════════════ -->
+<section class="listing" id="listing-1">
+  <div class="listing__header reveal">
+    <div class="listing__number">Property 01</div>
+    <h2 class="listing__title">Cozy Designer Suite &middot; Gym &amp; Pool &middot; DART Access</h2>
+  </div>
+  <div class="gallery reveal">
+    <div class="gallery__track">
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/46546182-9e9e-475d-bd14-3ca27823b1af.png?im_w=1200" alt="Living area" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/7fc6f924-2e3a-4be6-874d-2be4bb232a33.jpeg?im_w=1200" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/5bf49e1c-74e1-4f26-aea4-aad9a7456210.png?im_w=1200" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/95e9f9a9-111a-4245-932b-dde0a60efd14.png?im_w=1200" alt="Bathroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/089400a2-5c79-4691-bf66-e994f418167f.png?im_w=1200" alt="Entertainment" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="listing__body">
+    <div class="listing__content reveal">
+      <div class="listing__info-bar">
+        <div class="listing__location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Irving, TX &mdash; Las Colinas</div>
+        <div class="listing__specs"><span>3 guests</span><span>1 bedroom</span><span>1 bed</span><span>1 bath</span></div>
+      </div>
+      <p class="listing__description">A modern, elegant Las Colinas getaway featuring 10-foot ceilings, hardwood-style flooring, and a chef-inspired kitchen with a giant prep island. Unwind in the deep soaking tub, settle in with the 65&#8243; Smart TV and premium plush blankets, or challenge your crew to board games and the mini-hoop. The fully stocked coffee corner keeps you fueled, while Toyota Music Factory, Water Street dining, and Lake Carolyn trails are steps away. DART rail is a 5-minute walk, and resort-style pool, 24/7 gym, and covered parking are all on-site.</p>
+      <!-- Amenity Photo Cards -->
+      <div class="amenity-cards">
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/46546182-9e9e-475d-bd14-3ca27823b1af.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Living Room</div><div class="amenity-card__features">65&#8243; Smart TV &middot; Board games &middot; Mini-hoop &middot; Plush blankets</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/7fc6f924-2e3a-4be6-874d-2be4bb232a33.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Kitchen</div><div class="amenity-card__features">Chef-inspired &middot; Giant prep island &middot; Coffee corner &middot; 10ft ceilings</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/5bf49e1c-74e1-4f26-aea4-aad9a7456210.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bedroom</div><div class="amenity-card__features">Plush queen bed &middot; Premium linens &middot; Hardwood-style flooring</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1656911479326581139/original/95e9f9a9-111a-4245-932b-dde0a60efd14.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bathroom</div><div class="amenity-card__features">Deep soaking tub &middot; Premium towels</div></div></div>
+      </div>
+      <div class="building-amenities">
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Resort Pool</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>24/7 Gym</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>DART Rail</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Workspace</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10"/><path d="M2 12c0 5.52 4.48 10 10 10"/></svg>Lake Access</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Covered Parking</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/></svg>Self Check-In</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 5.172C10 3.782 8.884 2.5 7.5 2.5S5 3.782 5 5.172c0 2.325 2.5 4.828 2.5 4.828S10 7.5 10 5.172z"/><circle cx="18" cy="16" r="3"/></svg>Pet-Friendly</div>
+      </div>
+    </div>
+    <div class="listing__sidebar reveal reveal-d2">
+      <div class="booking-card">
+        <div class="booking-card__label">Book Your Stay</div>
+        <div class="booking-card__title">Cozy Designer Suite</div>
+        <div class="booking-card__subtitle">Irving, TX &mdash; Las Colinas</div>
+        <div class="booking-form" data-room="1656911479326581139" data-max-guests="3">
+          <div class="booking-row">
+            <div class="booking-field"><label>Check-in</label><input type="date" class="js-checkin"></div>
+            <div class="booking-field"><label>Check-out</label><input type="date" class="js-checkout"></div>
+          </div>
+          <div class="booking-field"><label>Guests</label><select class="js-guests"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option></select></div>
+          <div class="pet-row"><span>Traveling with a pet?</span><label class="toggle"><input type="checkbox" class="js-pet"><span class="toggle__track"></span><span class="toggle__thumb"></span></label></div>
+          <button class="btn-book js-book-btn" type="button">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+        <div class="booking-card__note">Opens Airbnb with your dates pre-filled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LISTING 2: Designer Game Suite
+     ═══════════════════════════════════════════ -->
+<section class="listing" id="listing-2">
+  <div class="listing__header reveal">
+    <div class="listing__number">Property 02</div>
+    <h2 class="listing__title">Designer Game Suite &middot; Resort Amenities &middot; DART Rail</h2>
+  </div>
+  <div class="gallery reveal">
+    <div class="gallery__track">
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/80e3dcf4-ac70-4765-a5c8-f9c08d908cb4.png?im_w=1200" alt="Overview" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/94b1c54b-c7c4-4165-b70c-285623ef5be8.png?im_w=1200" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/b716d376-c708-407f-b233-44184657bfb6.png?im_w=1200" alt="Living area" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/3fc5ca96-5c9c-48d1-a73f-c0370205819c.png?im_w=1200" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/29166219-5878-44bc-ab59-d13c1ce11a07.png?im_w=1200" alt="Bathroom" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="listing__body">
+    <div class="listing__content reveal">
+      <div class="listing__info-bar">
+        <div class="listing__location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Irving, TX &mdash; Las Colinas</div>
+        <div class="listing__specs"><span>3 guests</span><span>1 bedroom</span><span>1 bed</span><span>1 bath</span></div>
+      </div>
+      <p class="listing__description">A designer one-bedroom in Las Colinas draped in marble finishes, soft candlelight, and mirrors throughout for a warm, elevated ambience. The stocked coffee bar and chef-grade kitchen set the stage for relaxed mornings, while evenings come alive with the 65&#8243; Smart TV, a second bedroom TV, board games, mini golf, and a mini basketball hoop. Step out onto the balcony for fresh air, or walk to DART rail&nbsp;&mdash; Toyota Music Factory, Lake Carolyn, Alamo Drafthouse, and Water Street are all within reach.</p>
+      <div class="amenity-cards">
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/b716d376-c708-407f-b233-44184657bfb6.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Living Room</div><div class="amenity-card__features">65&#8243; Smart TV &middot; Mirrors &middot; Candles &middot; Board games &middot; Mini-hoop</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/3fc5ca96-5c9c-48d1-a73f-c0370205819c.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Kitchen</div><div class="amenity-card__features">Chef-grade &middot; Marble finishes &middot; Stocked coffee bar</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/94b1c54b-c7c4-4165-b70c-285623ef5be8.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bedroom</div><div class="amenity-card__features">Second TV &middot; Warm ambience &middot; Premium bedding</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/29166219-5878-44bc-ab59-d13c1ce11a07.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bathroom</div><div class="amenity-card__features">Marble finishes &middot; Premium towels</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1691507762565991335/original/80e3dcf4-ac70-4765-a5c8-f9c08d908cb4.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Balcony</div><div class="amenity-card__features">Outdoor chairs &middot; Fresh air &middot; Las Colinas views</div></div></div>
+      </div>
+      <div class="building-amenities">
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Pool &middot; Gym &middot; Yoga</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg>Sky Lounge</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Putting Green</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>Mini Golf</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>EV Charging</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>DART Rail</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 5.172C10 3.782 8.884 2.5 7.5 2.5S5 3.782 5 5.172c0 2.325 2.5 4.828 2.5 4.828S10 7.5 10 5.172z"/><circle cx="18" cy="16" r="3"/></svg>Pet-Friendly</div>
+      </div>
+    </div>
+    <div class="listing__sidebar reveal reveal-d2">
+      <div class="booking-card">
+        <div class="booking-card__label">Book Your Stay</div>
+        <div class="booking-card__title">Designer Game Suite</div>
+        <div class="booking-card__subtitle">Irving, TX &mdash; Las Colinas</div>
+        <div class="booking-form" data-room="1691507762565991335" data-max-guests="3">
+          <div class="booking-row">
+            <div class="booking-field"><label>Check-in</label><input type="date" class="js-checkin"></div>
+            <div class="booking-field"><label>Check-out</label><input type="date" class="js-checkout"></div>
+          </div>
+          <div class="booking-field"><label>Guests</label><select class="js-guests"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option></select></div>
+          <div class="pet-row"><span>Traveling with a pet?</span><label class="toggle"><input type="checkbox" class="js-pet"><span class="toggle__track"></span><span class="toggle__thumb"></span></label></div>
+          <button class="btn-book js-book-btn" type="button">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+        <div class="booking-card__note">Opens Airbnb with your dates pre-filled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LISTING 3: Gorgeous Luxury Lake View Suite
+     ═══════════════════════════════════════════ -->
+<section class="listing" id="listing-3">
+  <div class="listing__header reveal">
+    <div class="listing__number">Property 03</div>
+    <h2 class="listing__title">Gorgeous Luxury Lake View Suite &middot; Gym &amp; Pool</h2>
+  </div>
+  <div class="gallery reveal">
+    <div class="gallery__track">
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/d4cb708a-3694-4e6f-bd63-6757450a95e0.png?im_w=1200" alt="Panoramic view" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/1a729f61-a2e8-4a71-b77f-c8d0711ee30e.jpeg?im_w=1200" alt="Living room" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/bc00f64d-21d6-4907-93c2-bf91d3726c10.png?im_w=1200" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/cc082589-4ee5-491e-b6ba-2c93e84b0a57.png?im_w=1200" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/b5fe1afc-e3e3-445d-8c9c-c0d12ceb727c.jpeg?im_w=1200" alt="Bathroom" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="listing__body">
+    <div class="listing__content reveal">
+      <div class="listing__info-bar">
+        <div class="listing__location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Irving, TX &mdash; Las Colinas</div>
+        <div class="listing__specs"><span>3 guests</span><span>1 bedroom</span><span>1 bed</span><span>1 bath</span></div>
+      </div>
+      <p class="listing__description">An ultra-luxury yet cozy 600 sq ft Las Colinas lake-view suite. Wake up to tranquil Lake Carolyn views from your private balcony, surrounded by designer interiors, a plush queen bed, and warm candlelit ambience with throws. Binge on the 65&#8243; Smart TV, cool drinks from the wine cooler, or unleash on the UFC-style punching bag. The dedicated workspace features a 27&#8243; mounted monitor with 500 Mbps fiber Wi-Fi&nbsp;&mdash; perfect for remote work. On-site: waterfront pool, 24/7 two-story gym, game room, and conference spaces.</p>
+      <div class="amenity-cards">
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/d4cb708a-3694-4e6f-bd63-6757450a95e0.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Living Room</div><div class="amenity-card__features">65&#8243; Smart TV &middot; Wine cooler &middot; Candles &middot; Throws &middot; Game bin</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/1a729f61-a2e8-4a71-b77f-c8d0711ee30e.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Lake View</div><div class="amenity-card__features">Lake Carolyn panorama &middot; Private balcony &middot; Tranquil sunrise</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/bc00f64d-21d6-4907-93c2-bf91d3726c10.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bedroom</div><div class="amenity-card__features">Plush queen bed &middot; Walk-in closet &middot; Vanity mirror</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/cc082589-4ee5-491e-b6ba-2c93e84b0a57.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Workspace</div><div class="amenity-card__features">27&#8243; monitor &middot; 500 Mbps fiber &middot; Dedicated desk</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1579365691674889946/original/b5fe1afc-e3e3-445d-8c9c-c0d12ceb727c.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bathroom</div><div class="amenity-card__features">Premium towels &middot; Keurig coffee station</div></div></div>
+      </div>
+      <div class="building-amenities">
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Waterfront Pool</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>2-Story Gym</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>UFC Punching Bag</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>Game Room</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>Conference Spaces</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 5.172C10 3.782 8.884 2.5 7.5 2.5S5 3.782 5 5.172c0 2.325 2.5 4.828 2.5 4.828S10 7.5 10 5.172z"/><circle cx="18" cy="16" r="3"/></svg>Pet-Friendly</div>
+      </div>
+    </div>
+    <div class="listing__sidebar reveal reveal-d2">
+      <div class="booking-card">
+        <div class="booking-card__label">Book Your Stay</div>
+        <div class="booking-card__title">Luxury Lake View Suite</div>
+        <div class="booking-card__subtitle">600 sq ft &middot; Irving, TX</div>
+        <div class="booking-form" data-room="1579365691674889946" data-max-guests="3">
+          <div class="booking-row">
+            <div class="booking-field"><label>Check-in</label><input type="date" class="js-checkin"></div>
+            <div class="booking-field"><label>Check-out</label><input type="date" class="js-checkout"></div>
+          </div>
+          <div class="booking-field"><label>Guests</label><select class="js-guests"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option></select></div>
+          <div class="pet-row"><span>Traveling with a pet?</span><label class="toggle"><input type="checkbox" class="js-pet"><span class="toggle__track"></span><span class="toggle__thumb"></span></label></div>
+          <button class="btn-book js-book-btn" type="button">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+        <div class="booking-card__note">Opens Airbnb with your dates pre-filled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LISTING 4: Luxury Executive Living
+     ═══════════════════════════════════════════ -->
+<section class="listing" id="listing-4">
+  <div class="listing__header reveal">
+    <div class="listing__number">Property 04</div>
+    <h2 class="listing__title">Luxury Executive Living &middot; DART Rail &middot; Workspace</h2>
+  </div>
+  <div class="gallery reveal">
+    <div class="gallery__track">
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/a818f74a-be97-4f4a-86df-b8198233aefd.png?im_w=1200" alt="Living room" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/3b3051d2-ff83-4c43-b4f6-fe3a3eee2edb.jpeg?im_w=1200" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/804a0e54-f561-4e04-a6f7-5aabc726a43f.jpeg?im_w=1200" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/da58c93b-d4db-4696-b8b3-815d1fbca757.jpeg?im_w=1200" alt="Workspace" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/93dafcdf-b571-4c4b-8eb5-4cbe3ce87677.jpeg?im_w=1200" alt="Patio" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="listing__body">
+    <div class="listing__content reveal">
+      <div class="listing__info-bar">
+        <div class="listing__location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Richardson, TX</div>
+        <div class="listing__specs"><span>5 guests</span><span>1 bedroom</span><span>1 bed</span><span>1 bath</span></div>
+      </div>
+      <p class="listing__description">A luxury executive suite in Richardson with soaring high ceilings, floor-to-ceiling natural light, and an oversized private patio. The 75&#8243; Smart TV dominates the living room while a dedicated desk with 27&#8243; monitor makes remote work seamless. The stocked coffee and tea station, plush towels, throw blankets, and air mattress for up to 5 guests ensure everyone's comfortable. DART Galatyn Park station is a 3-minute walk. The building features a resort pool with tanning ledge and cabanas, 24/7 gym, sky lounge with panoramic views, arcade room, pool table, ping pong, fire pit, indoor fireplace, and co-working spaces.</p>
+      <div class="amenity-cards">
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/a818f74a-be97-4f4a-86df-b8198233aefd.png?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Living Room</div><div class="amenity-card__features">75&#8243; Smart TV &middot; High ceilings &middot; Floor-to-ceiling light &middot; Fireplace</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/804a0e54-f561-4e04-a6f7-5aabc726a43f.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Kitchen</div><div class="amenity-card__features">Coffee &amp; tea station &middot; Full kitchen &middot; Modern finishes</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/3b3051d2-ff83-4c43-b4f6-fe3a3eee2edb.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bedroom</div><div class="amenity-card__features">Premium bedding &middot; Plush towels &middot; Throw blankets &middot; Sleeps 5</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/da58c93b-d4db-4696-b8b3-815d1fbca757.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Workspace</div><div class="amenity-card__features">27&#8243; monitor &middot; Dedicated desk &middot; Natural light</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-1622247533469388804/original/93dafcdf-b571-4c4b-8eb5-4cbe3ce87677.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Patio</div><div class="amenity-card__features">Oversized private balcony &middot; Sky lounge views</div></div></div>
+      </div>
+      <div class="building-amenities">
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Resort Pool + Cabanas</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>24/7 Gym</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg>Sky Lounge</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>Arcade &middot; Pool Table &middot; Ping Pong</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10a5 5 0 1 1-10 0c0-1.5.5-2 1-3"/></svg>Fire Pit &middot; Fireplace</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>DART Galatyn Park</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>EV Charger</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 5.172C10 3.782 8.884 2.5 7.5 2.5S5 3.782 5 5.172c0 2.325 2.5 4.828 2.5 4.828S10 7.5 10 5.172z"/><circle cx="18" cy="16" r="3"/></svg>Pet-Friendly</div>
+      </div>
+    </div>
+    <div class="listing__sidebar reveal reveal-d2">
+      <div class="booking-card">
+        <div class="booking-card__label">Book Your Stay</div>
+        <div class="booking-card__title">Luxury Executive Living</div>
+        <div class="booking-card__subtitle">Richardson, TX &middot; Sleeps 5</div>
+        <div class="booking-form" data-room="1622247533469388804" data-max-guests="5">
+          <div class="booking-row">
+            <div class="booking-field"><label>Check-in</label><input type="date" class="js-checkin"></div>
+            <div class="booking-field"><label>Check-out</label><input type="date" class="js-checkout"></div>
+          </div>
+          <div class="booking-field"><label>Guests</label><select class="js-guests"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option><option value="4">4 Guests</option><option value="5">5 Guests</option></select></div>
+          <div class="pet-row"><span>Traveling with a pet?</span><label class="toggle"><input type="checkbox" class="js-pet"><span class="toggle__track"></span><span class="toggle__thumb"></span></label></div>
+          <button class="btn-book js-book-btn" type="button">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+        <div class="booking-card__note">Opens Airbnb with your dates pre-filled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     LISTING 5: Stunning Lake Views
+     ═══════════════════════════════════════════ -->
+<section class="listing" id="listing-5">
+  <div class="listing__header reveal">
+    <div class="listing__number">Property 05</div>
+    <h2 class="listing__title">Stunning Lake Views &middot; DART Train &middot; Gym &amp; Pool</h2>
+  </div>
+  <div class="gallery reveal">
+    <div class="gallery__track">
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/9198323c-4b1b-49c9-a728-37d07c6c7658.jpeg?im_w=1200" alt="Lake panorama" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/23041dc0-7b63-433d-91c8-15e14cd4a4bf.jpeg?im_w=1200" alt="Living room" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/e0d098ae-a435-4b83-85ed-08fe81487f69.jpeg?im_w=1200" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/9d2caa63-3829-4cc7-a019-3d6ca1a5b882.jpeg?im_w=1200" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery__item"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/f3df3c99-2d91-42db-9705-80968567f456.jpeg?im_w=1200" alt="Pool" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="listing__body">
+    <div class="listing__content reveal">
+      <div class="listing__info-bar">
+        <div class="listing__location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Irving, TX &mdash; Las Colinas</div>
+        <div class="listing__specs"><span>3 guests</span><span>1 bedroom</span><span>1 bed</span><span>1 bath</span></div>
+      </div>
+      <p class="listing__description">A modern designer Las Colinas lake-view one-bedroom with breathtaking Lake Carolyn views from a private balcony. The luxe living room features a massive L-shaped couch, 65&#8243; Smart TV, and a warm candlelit atmosphere with premium throws. The bedroom boasts its own 50&#8243; Smart TV and an ultra-plush queen bed with premium linens. Enjoy the game bin, full-body vanity mirror, and dedicated desk workspace&nbsp;&mdash; all powered by 1GB fiber Wi-Fi. DART Orange Line access, secure garage parking, waterfront pool, 24/7 two-story gym, game room, business center, and conference rooms are all on-site.</p>
+      <div class="amenity-cards">
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/23041dc0-7b63-433d-91c8-15e14cd4a4bf.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Living Room</div><div class="amenity-card__features">65&#8243; Smart TV &middot; L-shaped couch &middot; Candles &middot; Throws &middot; Game bin</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/9198323c-4b1b-49c9-a728-37d07c6c7658.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Lake View</div><div class="amenity-card__features">Lake Carolyn panorama &middot; Private balcony &middot; Breathtaking sunsets</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/e0d098ae-a435-4b83-85ed-08fe81487f69.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Bedroom</div><div class="amenity-card__features">50&#8243; Smart TV &middot; Ultra-plush queen &middot; Premium linens &middot; Walk-in closet</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/9d2caa63-3829-4cc7-a019-3d6ca1a5b882.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Kitchen</div><div class="amenity-card__features">Full kitchen &middot; Modern appliances &middot; Coffee station</div></div></div>
+        <div class="amenity-card amenity-card--photo" style="background-image:url('https://a0.muscache.com/im/pictures/hosting/Hosting-862596563097784023/original/f3df3c99-2d91-42db-9705-80968567f456.jpeg?im_w=720')"><div class="amenity-card__inner"><div class="amenity-card__title">Amenities</div><div class="amenity-card__features">Waterfront pool &middot; Vanity mirror &middot; Premium towels</div></div></div>
+      </div>
+      <div class="building-amenities">
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Waterfront Pool</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>2-Story Gym</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>1GB Fiber Wi-Fi</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>DART Orange Line</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Business Center</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>Conference Rooms</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Secure Garage</div>
+        <div class="b-amenity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 5.172C10 3.782 8.884 2.5 7.5 2.5S5 3.782 5 5.172c0 2.325 2.5 4.828 2.5 4.828S10 7.5 10 5.172z"/><circle cx="18" cy="16" r="3"/></svg>Pet-Friendly</div>
+      </div>
+    </div>
+    <div class="listing__sidebar reveal reveal-d2">
+      <div class="booking-card">
+        <div class="booking-card__label">Book Your Stay</div>
+        <div class="booking-card__title">Stunning Lake Views</div>
+        <div class="booking-card__subtitle">Irving, TX &mdash; Las Colinas</div>
+        <div class="booking-form" data-room="862596563097784023" data-max-guests="3">
+          <div class="booking-row">
+            <div class="booking-field"><label>Check-in</label><input type="date" class="js-checkin"></div>
+            <div class="booking-field"><label>Check-out</label><input type="date" class="js-checkout"></div>
+          </div>
+          <div class="booking-field"><label>Guests</label><select class="js-guests"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option></select></div>
+          <div class="pet-row"><span>Traveling with a pet?</span><label class="toggle"><input type="checkbox" class="js-pet"><span class="toggle__track"></span><span class="toggle__thumb"></span></label></div>
+          <button class="btn-book js-book-btn" type="button">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+        <div class="booking-card__note">Opens Airbnb with your dates pre-filled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="reveal">
+    <div class="footer__logo">Regent Stays</div>
+    <p class="footer__tagline">Curated luxury stays in Dallas&ndash;Fort Worth</p>
+    <div class="footer__links">
+      <a href="#listing-1">Cozy Designer Suite</a>
+      <a href="#listing-2">Designer Game Suite</a>
+      <a href="#listing-3">Lake View Suite</a>
+      <a href="#listing-4">Executive Living</a>
+      <a href="#listing-5">Stunning Lake Views</a>
+    </div>
+    <div class="footer__divider"></div>
+    <p class="footer__copy">&copy; 2026 Regent Stays. All properties hosted on Airbnb. All photos are from actual listings.</p>
+  </div>
+</footer>
+
+<!-- 10% OFF POPUP -->
+<div class="modal-overlay" id="promoModal">
+  <div class="modal">
+    <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
+    <svg class="modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+    <div class="modal__title">Welcome to Regent Stays</div>
+    <p class="modal__text">Join our list and get <strong style="color:var(--gold)">10% off</strong> your first booking at any of our curated properties.</p>
+    <div class="modal__form" id="promoForm">
+      <input type="email" class="modal__input" id="promoEmail" placeholder="Enter your email address" required>
+      <button class="modal__btn" id="promoSubmit">Get 10% Off</button>
+    </div>
+    <div class="modal__fine">We respect your privacy. Unsubscribe anytime.</div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.pageYOffset > 80); }, { passive: true });
+
+// Reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Draggable galleries
+document.querySelectorAll('.gallery__track').forEach(t => {
+  let d = false, sx, sl;
+  t.addEventListener('mousedown', e => { d = true; t.style.cursor = 'grabbing'; sx = e.pageX - t.offsetLeft; sl = t.scrollLeft; });
+  t.addEventListener('mouseleave', () => { d = false; t.style.cursor = 'grab'; });
+  t.addEventListener('mouseup', () => { d = false; t.style.cursor = 'grab'; });
+  t.addEventListener('mousemove', e => { if (!d) return; e.preventDefault(); t.scrollLeft = sl - (e.pageX - t.offsetLeft - sx) * 1.5; });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+});
+
+// Booking forms — set default dates & handle Book Now
+(function() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date(today);
+  dayAfter.setDate(dayAfter.getDate() + 3);
+  const fmt = d => d.toISOString().split('T')[0];
+
+  document.querySelectorAll('.booking-form').forEach(form => {
+    const ci = form.querySelector('.js-checkin');
+    const co = form.querySelector('.js-checkout');
+    ci.value = fmt(tomorrow);
+    ci.min = fmt(today);
+    co.value = fmt(dayAfter);
+    co.min = fmt(tomorrow);
+
+    ci.addEventListener('change', () => {
+      const minOut = new Date(ci.value);
+      minOut.setDate(minOut.getDate() + 1);
+      co.min = fmt(minOut);
+      if (new Date(co.value) <= new Date(ci.value)) co.value = fmt(minOut);
+    });
+
+    form.querySelector('.js-book-btn').addEventListener('click', () => {
+      const roomId = form.dataset.room;
+      const checkin = ci.value;
+      const checkout = co.value;
+      const guests = form.querySelector('.js-guests').value;
+      const pet = form.querySelector('.js-pet').checked;
+      let url = 'https://www.airbnb.com/rooms/' + roomId + '?check_in=' + checkin + '&check_out=' + checkout + '&adults=' + guests;
+      if (pet) url += '&pets=1';
+      window.open(url, '_blank');
+    });
+  });
+})();
+
+// 10% OFF POPUP
+(function() {
+  const overlay = document.getElementById('promoModal');
+  const closeBtn = document.getElementById('modalClose');
+  const submitBtn = document.getElementById('promoSubmit');
+  const emailInput = document.getElementById('promoEmail');
+
+  function closeModal() { overlay.classList.remove('active'); }
+
+  if (!localStorage.getItem('regent_returning_user')) {
+    setTimeout(() => { overlay.classList.add('active'); }, 4000);
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  submitBtn.addEventListener('click', () => {
+    const email = emailInput.value.trim();
+    if (email && email.includes('@')) {
+      localStorage.setItem('regent_returning_user', 'true');
+      overlay.querySelector('.modal__title').textContent = 'You\'re In!';
+      overlay.querySelector('.modal__text').innerHTML = 'Check your inbox for your <strong style="color:var(--gold)">10% discount code</strong>. Happy travels!';
+      overlay.querySelector('.modal__form').style.display = 'none';
+      overlay.querySelector('.modal__fine').style.display = 'none';
+      setTimeout(closeModal, 2500);
+    } else {
+      emailInput.style.borderColor = '#e74c3c';
+      emailInput.setAttribute('placeholder', 'Please enter a valid email');
+      setTimeout(() => { emailInput.style.borderColor = ''; emailInput.setAttribute('placeholder', 'Enter your email address'); }, 2000);
+    }
+  });
+
+  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitBtn.click(); });
+})();
+</script>
+</body>
+</html>
